@@ -1,0 +1,61 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+const siteName = "Cedric Orton-Urbina";
+const pageTitle = title === siteName ? title : `${title} | ${siteName}`;
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta name="description" content={description} />
+
+    <title>{pageTitle}</title>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">
+      Skip to main content
+    </a>
+
+    <header class="site-header">
+      <nav
+        class="container site-navigation"
+        aria-label="Primary navigation"
+      >
+        <a class="site-name" href="/">
+          {siteName}
+        </a>
+
+        <ul class="navigation-links">
+          <li><a href="/#projects">Projects</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; {currentYear} {siteName}</p>
+      </div>
+    </footer>
+  </body>
+</html>

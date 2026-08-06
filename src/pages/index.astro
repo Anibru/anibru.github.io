@@ -1,111 +1,319 @@
 ---
-const name = "Cedric Orton-Urbina";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const projects = [
   {
     title: "Saturn Ring Wave Analysis",
+    category: "Scientific Computing",
     description:
-      "Computational analysis of density and bending waves in Saturn's rings."
+      "Computational analysis of density and bending waves in Saturn's rings using signal processing, wavelet methods, and physical modeling.",
+    technologies: ["Python", "NumPy", "SciPy", "Wavelet Analysis"]
   },
   {
     title: "Parallel Raycasting",
+    category: "Systems Programming",
     description:
-      "A multithreaded C implementation comparing alternative parallelization strategies."
+      "A multithreaded C raycasting system comparing light-based and spatial parallelization strategies.",
+    technologies: ["C", "POSIX Threads", "Parallel Computing"]
   },
   {
     title: "Machine Learning Systems",
+    category: "Machine Learning",
     description:
-      "Implementations and analyses of classification, neural network, and kernel methods."
+      "Implementations of classification, neural-network, and kernel methods with attention to mathematical foundations and model behavior.",
+    technologies: ["Python", "PyTorch", "NumPy"]
   }
 ];
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    />
-    <meta
-      name="description"
-      content="The technical portfolio of Cedric Orton-Urbina."
-    />
-    <title>{name} | Portfolio</title>
-  </head>
+<BaseLayout
+  title="Cedric Orton-Urbina"
+  description="The technical portfolio of Cedric Orton-Urbina, specializing in scientific computing, simulation, machine learning, and aerospace research."
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">
+        Scientific computing · Simulation · Machine learning
+      </p>
 
-  <body>
-    <header>
-      <nav aria-label="Primary navigation">
-        <a href="/">{name}</a>
+      <h1>
+        I build computational tools for scientific and engineering problems.
+      </h1>
 
-        <ul>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+      <p class="hero-description">
+        I am a computer scientist and computational researcher interested in
+        physics-based simulation, aerospace, astronomy, and high-performance
+        computing.
+      </p>
 
-    <main>
-      <section aria-labelledby="introduction-heading">
-        <p>Scientific computing · Simulation · Machine learning</p>
+      <div class="hero-actions">
+        <a class="primary-link" href="#projects">
+          View selected projects
+        </a>
 
-        <h1 id="introduction-heading">
-          I build computational tools for scientific and engineering problems.
-        </h1>
+        <a class="secondary-link" href="/resume.pdf">
+          View résumé
+        </a>
+      </div>
+    </div>
+  </section>
 
-        <p>
-          I am a computer scientist and computational researcher interested in
-          physics-based simulation, aerospace, astronomy, and high-performance
-          computing.
-        </p>
+  <section
+    id="projects"
+    class="page-section"
+    aria-labelledby="projects-heading"
+  >
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Selected work</p>
+        <h2 id="projects-heading">Projects</h2>
+      </div>
 
-        <a href="#projects">View selected projects</a>
-      </section>
+      <div class="project-grid">
+        {
+          projects.map((project) => (
+            <article class="project-card">
+              <p class="project-category">{project.category}</p>
+              <h3>{project.title}</h3>
+              <p class="project-description">{project.description}</p>
 
-      <section id="projects" aria-labelledby="projects-heading">
-        <h2 id="projects-heading">Selected projects</h2>
+              <ul
+                class="technology-list"
+                aria-label={`Technologies used for ${project.title}`}
+              >
+                {
+                  project.technologies.map((technology) => (
+                    <li>{technology}</li>
+                  ))
+                }
+              </ul>
 
-        <div>
-          {
-            projects.map((project) => (
-              <article>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <a href="/projects">Read project details</a>
-              </article>
-            ))
-          }
-        </div>
-      </section>
+              <a class="project-link" href="/projects">
+                View project
+                <span aria-hidden="true"> →</span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-      <section id="about" aria-labelledby="about-heading">
-        <h2 id="about-heading">About</h2>
+  <section
+    id="about"
+    class="page-section"
+    aria-labelledby="about-heading"
+  >
+    <div class="container narrow-content">
+      <p class="eyebrow">Background</p>
+      <h2 id="about-heading">About</h2>
 
-        <p>
-          My work combines computer science with physical modeling and
-          quantitative research. I am particularly interested in software that
-          makes complex physical systems easier to simulate, analyze, and
-          understand.
-        </p>
-      </section>
+      <p class="section-copy">
+        My work combines computer science with physical modeling and
+        quantitative research. I am particularly interested in software that
+        makes complex physical systems easier to simulate, analyze, and
+        understand.
+      </p>
+    </div>
+  </section>
 
-      <section id="contact" aria-labelledby="contact-heading">
-        <h2 id="contact-heading">Contact</h2>
+  <section
+    id="contact"
+    class="page-section"
+    aria-labelledby="contact-heading"
+  >
+    <div class="container narrow-content">
+      <p class="eyebrow">Get in touch</p>
+      <h2 id="contact-heading">Contact</h2>
 
-        <ul>
-          <li><a href="mailto:your-email@example.com">Email</a></li>
-          <li><a href="#">GitHub</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="/resume.pdf">Résumé</a></li>
-        </ul>
-      </section>
-    </main>
+      <p class="section-copy">
+        I am interested in opportunities involving scientific software,
+        physics-based simulation, aerospace, and computational research.
+      </p>
 
-    <footer>
-      <p>&copy; {new Date().getFullYear()} {name}</p>
-    </footer>
-  </body>
-</html>
+      <ul class="contact-links">
+        <li>
+          <a href="mailto:your-email@example.com">Email</a>
+        </li>
+        <li>
+          <a href="https://github.com/YOUR-USERNAME">GitHub</a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/YOUR-USERNAME">
+            LinkedIn
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(5rem, 12vw, 9rem);
+  }
+
+  .hero .container {
+    max-width: var(--page-width);
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-4);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    max-width: 15ch;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+  }
+
+  .hero-description {
+    max-width: 42rem;
+    margin-top: var(--space-8);
+    color: var(--color-text-muted);
+    font-size: clamp(1.125rem, 2vw, 1.35rem);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .primary-link,
+  .secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding-inline: var(--space-6);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-small);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .primary-link {
+    background: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  .primary-link:hover {
+    background: var(--color-accent-dark);
+    color: var(--color-surface);
+  }
+
+  .secondary-link {
+    background: transparent;
+    color: var(--color-accent);
+  }
+
+  .secondary-link:hover {
+    border-color: var(--color-accent-dark);
+  }
+
+  .page-section {
+    padding-block: var(--space-16);
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-8);
+  }
+
+  .section-heading h2,
+  .narrow-content h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .project-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-medium);
+    background: var(--color-surface);
+  }
+
+  .project-category {
+    margin-bottom: var(--space-3);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .project-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .project-description {
+    margin-top: var(--space-4);
+    color: var(--color-text-muted);
+  }
+
+  .technology-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .technology-list li {
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .project-link {
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: var(--space-6);
+    font-weight: 700;
+  }
+
+  .narrow-content {
+    max-width: var(--content-width);
+  }
+
+  .section-copy {
+    margin-top: var(--space-6);
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact-links a {
+    font-weight: 700;
+  }
+
+  @media (min-width: 48rem) {
+    .project-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>
