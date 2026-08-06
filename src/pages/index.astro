@@ -1,17 +1,111 @@
 ---
+const name = "Cedric Orton-Urbina";
 
+const projects = [
+  {
+    title: "Saturn Ring Wave Analysis",
+    description:
+      "Computational analysis of density and bending waves in Saturn's rings."
+  },
+  {
+    title: "Parallel Raycasting",
+    description:
+      "A multithreaded C implementation comparing alternative parallelization strategies."
+  },
+  {
+    title: "Machine Learning Systems",
+    description:
+      "Implementations and analyses of classification, neural network, and kernel methods."
+  }
+];
 ---
 
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta
+      name="description"
+      content="The technical portfolio of Cedric Orton-Urbina."
+    />
+    <title>{name} | Portfolio</title>
+  </head>
+
+  <body>
+    <header>
+      <nav aria-label="Primary navigation">
+        <a href="/">{name}</a>
+
+        <ul>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section aria-labelledby="introduction-heading">
+        <p>Scientific computing · Simulation · Machine learning</p>
+
+        <h1 id="introduction-heading">
+          I build computational tools for scientific and engineering problems.
+        </h1>
+
+        <p>
+          I am a computer scientist and computational researcher interested in
+          physics-based simulation, aerospace, astronomy, and high-performance
+          computing.
+        </p>
+
+        <a href="#projects">View selected projects</a>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Selected projects</h2>
+
+        <div>
+          {
+            projects.map((project) => (
+              <article>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <a href="/projects">Read project details</a>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="about" aria-labelledby="about-heading">
+        <h2 id="about-heading">About</h2>
+
+        <p>
+          My work combines computer science with physical modeling and
+          quantitative research. I am particularly interested in software that
+          makes complex physical systems easier to simulate, analyze, and
+          understand.
+        </p>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact</h2>
+
+        <ul>
+          <li><a href="mailto:your-email@example.com">Email</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="/resume.pdf">Résumé</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; {new Date().getFullYear()} {name}</p>
+    </footer>
+  </body>
 </html>
