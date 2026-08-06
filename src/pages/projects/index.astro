@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { projects } from "../../data/projects";
+---
+
+<BaseLayout
+  title="Projects"
+  description="Scientific computing, systems programming, machine learning, and simulation projects by Cedric Orton-Urbina."
+>
+  <section
+    class="projects-page"
+    aria-labelledby="projects-page-heading"
+  >
+    <div class="container">
+      <header class="page-header">
+        <p class="eyebrow">Portfolio</p>
+
+        <h1 id="projects-page-heading">
+          Projects
+        </h1>
+
+        <p class="page-introduction">
+          Selected work in scientific computing, simulation,
+          machine learning, and systems programming.
+        </p>
+      </header>
+
+      <div class="project-grid">
+        {
+          projects.map((project) => (
+            <ProjectCard project={project} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-page {
+    padding-block: var(--space-16);
+  }
+
+  .page-header {
+    max-width: var(--content-width);
+    margin-bottom: var(--space-12);
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-4);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .page-introduction {
+    margin-top: var(--space-6);
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+</style>

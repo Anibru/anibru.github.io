@@ -1,0 +1,97 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project-card">
+  <p class="project-category">
+    {project.category}
+  </p>
+
+  <h3>
+    {project.title}
+  </h3>
+
+  <p class="project-description">
+    {project.summary}
+  </p>
+
+  <ul
+    class="technology-list"
+    aria-label={`Technologies used for ${project.title}`}
+  >
+    {
+      project.technologies.map((technology) => (
+        <li>{technology}</li>
+      ))
+    }
+  </ul>
+
+  <a
+    class="project-link"
+    href={`/projects/${project.slug}/`}
+    aria-label={`View ${project.title}`}
+  >
+    View project
+    <span aria-hidden="true"> →</span>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-medium);
+    background: var(--color-surface);
+  }
+
+  .project-category {
+    margin-bottom: var(--space-3);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .project-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .project-description {
+    margin-top: var(--space-4);
+    color: var(--color-text-muted);
+  }
+
+  .technology-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .technology-list li {
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .project-link {
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: var(--space-6);
+    font-weight: 700;
+  }
+</style>
