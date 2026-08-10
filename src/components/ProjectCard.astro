@@ -1,8 +1,8 @@
 ---
-import type { Project } from "../data/projects";
+import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  project: Project;
+  project: CollectionEntry<"projects">;
 }
 
 const { project } = Astro.props;
@@ -10,23 +10,23 @@ const { project } = Astro.props;
 
 <article class="project-card">
   <p class="project-category">
-    {project.category}
+    {project.data.category}
   </p>
 
   <h3>
-    {project.title}
+    {project.data.title}
   </h3>
 
   <p class="project-description">
-    {project.summary}
+    {project.data.summary}
   </p>
 
   <ul
     class="technology-list"
-    aria-label={`Technologies used for ${project.title}`}
+    aria-label={`Technologies used for ${project.data.title}`}
   >
     {
-      project.technologies.map((technology) => (
+      project.data.technologies.map((technology) => (
         <li>{technology}</li>
       ))
     }
@@ -34,8 +34,8 @@ const { project } = Astro.props;
 
   <a
     class="project-link"
-    href={`/projects/${project.slug}/`}
-    aria-label={`View ${project.title}`}
+    href={`/projects/${project.id}/`}
+    aria-label={`View ${project.data.title}`}
   >
     View project
     <span aria-hidden="true"> →</span>

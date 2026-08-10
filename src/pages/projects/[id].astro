@@ -1,33 +1,37 @@
 ---
-import type { GetStaticPaths } from "astro";
+import {
+  getCollection,
+  render,
+  type CollectionEntry
+} from "astro:content";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import {
-  projects,
-  type Project
-} from "../../data/projects";
 
-export const getStaticPaths = (() => {
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+
   return projects.map((project) => ({
     params: {
-      slug: project.slug
+      id: project.id
     },
     props: {
       project
     }
   }));
-}) satisfies GetStaticPaths;
+}
 
 interface Props {
-  project: Project;
+  project: CollectionEntry<"projects">;
 }
 
 const { project } = Astro.props;
+
+const { Content } = await render(project);
 ---
 
 <BaseLayout
-  title={project.title}
-  description={project.summary}
+  title={project.data.title}
+  description={project.data.summary}
 >
   <article class="project-page">
     <div class="container project-container">
@@ -37,46 +41,31 @@ const { project } = Astro.props;
 
       <header class="project-header">
         <p class="project-category">
-          {project.category}
+          {project.data.category}
         </p>
 
-        <h1>{project.title}</h1>
+        <h1>
+          {project.data.title}
+        </h1>
 
         <p class="project-summary">
-          {project.summary}
+          {project.data.summary}
         </p>
+
+        <ul
+          class="technology-list"
+          aria-label={`Technologies used for ${project.data.title}`}
+        >
+          {
+            project.data.technologies.map((technology) => (
+              <li>{technology}</li>
+            ))
+          }
+        </ul>
       </header>
 
       <div class="project-content">
-        <section aria-labelledby="problem-heading">
-          <h2 id="problem-heading">Problem</h2>
-          <p>{project.problem}</p>
-        </section>
-
-        <section aria-labelledby="approach-heading">
-          <h2 id="approach-heading">Approach</h2>
-          <p>{project.approach}</p>
-        </section>
-
-        <section aria-labelledby="outcome-heading">
-          <h2 id="outcome-heading">Outcome</h2>
-          <p>{project.outcome}</p>
-        </section>
-
-        <section aria-labelledby="technologies-heading">
-          <h2 id="technologies-heading">Technologies</h2>
-
-          <ul
-            class="technology-list"
-            aria-label={`Technologies used for ${project.title}`}
-          >
-            {
-              project.technologies.map((technology) => (
-                <li>{technology}</li>
-              ))
-            }
-          </ul>
-        </section>
+        <Content />
       </div>
     </div>
   </article>
@@ -118,19 +107,24 @@ const { project } = Astro.props;
   }
 
   .project-content {
-    display: grid;
-    gap: var(--space-12);
-    margin-top: var(--space-16);
+  margin-top: var(--space-16);
   }
 
-  .project-content h2 {
+  .project-content :global(h2) {
+    margin-top: var(--space-12);
     margin-bottom: var(--space-4);
     font-size: 1.5rem;
   }
 
-  .project-content p {
+  .project-content :global(p) {
+    margin-top: var(--space-4);
     color: var(--color-text-muted);
     font-size: 1.0625rem;
+  }
+
+  .project-content :global(ul),
+  .project-content :global(ol) {
+    margin-top: var(--space-4);
   }
 
   .technology-list {
