@@ -10,4 +10,5 @@ export default defineConfig({
       rehypePlugins: [rehypeKatex],
     }),
   },
+  site: "https://anibru.github.io"
 });
