@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "katex/dist/katex.min.css";
 
 interface Props {
   title: string;
@@ -16,6 +17,20 @@ const currentYear = new Date().getFullYear();
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem("theme");
+    
+        if (savedTheme === "light") {
+          document.documentElement.dataset.theme = "light";
+        } else {
+          document.documentElement.dataset.theme = "dark";
+        }
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -41,9 +56,18 @@ const currentYear = new Date().getFullYear();
         </a>
 
         <ul class="navigation-links">
-          <li><a href="/projects">Projects</a></li>
+          <li><a href="/projects/">Projects</a></li>
           <li><a href="/#about">About</a></li>
           <li><a href="/#contact">Contact</a></li>
+          <li><a href="/resume.pdf">Résumé</a></li>
+        
+          <button
+            class="theme-toggle"
+            type="button"
+            data-theme-toggle
+          >
+            Light mode
+          </button>
         </ul>
       </nav>
     </header>
@@ -57,5 +81,36 @@ const currentYear = new Date().getFullYear();
         <p>&copy; {currentYear} {siteName}</p>
       </div>
     </footer>
+    <script>
+      const toggle = document.querySelector("[data-theme-toggle]");
+    
+      function updateToggle() {
+        if (!(toggle instanceof HTMLButtonElement)) {
+          return;
+        }
+    
+        const theme = document.documentElement.dataset.theme ?? "dark";
+    
+        toggle.textContent =
+          theme === "dark" ? "Light" : "Dark";
+      }
+    
+      if (toggle instanceof HTMLButtonElement) {
+        updateToggle();
+    
+        toggle.addEventListener("click", () => {
+          const currentTheme =
+            document.documentElement.dataset.theme ?? "dark";
+    
+          const nextTheme =
+            currentTheme === "dark" ? "light" : "dark";
+    
+          document.documentElement.dataset.theme = nextTheme;
+          localStorage.setItem("theme", nextTheme);
+    
+          updateToggle();
+        });
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,187 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type ProjectResource =
+  CollectionEntry<"projects">["data"]["resources"][number];
+
+interface Props {
+  resources: ProjectResource[];
+}
+
+const { resources } = Astro.props;
+
+function isExternalUrl(href: string) {
+  return href.startsWith("http://") ||
+         href.startsWith("https://");
+}
+---
+
+{
+  resources.length > 0 && (
+    <section
+      class="project-resources"
+      aria-labelledby="project-resources-heading"
+    >
+      <div class="resources-heading">
+        <p class="resources-eyebrow">
+          Explore the work
+        </p>
+
+        <h2 id="project-resources-heading">
+          Project resources
+        </h2>
+      </div>
+
+      <ul class="resource-list">
+        {
+          resources.map((resource) => (
+            <li class="resource-card">
+              <div class="resource-information">
+                <p class="resource-kind">
+                  {resource.kind}
+                </p>
+
+                <h3>
+                  {resource.title}
+                </h3>
+
+                {
+                  resource.description && (
+                    <p class="resource-description">
+                      {resource.description}
+                    </p>
+                  )
+                }
+              </div>
+
+              <div class="resource-actions">
+                {
+                  resource.actions.map((action) => {
+                    const external =
+                      isExternalUrl(action.href);
+
+                    return (
+                      <a
+                        class="resource-action"
+                        href={action.href}
+                        target={
+                          external
+                            ? "_blank"
+                            : undefined
+                        }
+                        rel={
+                          external
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        download={action.download}
+                      >
+                        {action.label}
+
+                        {
+                          external && (
+                            <span aria-hidden="true">
+                              {" "}↗
+                            </span>
+                          )
+                        }
+                      </a>
+                    );
+                  })
+                }
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .project-resources {
+    margin-top: var(--space-16);
+    padding-top: var(--space-12);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .resources-heading {
+    margin-bottom: var(--space-6);
+  }
+
+  .resources-eyebrow {
+    margin-bottom: var(--space-3);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .resources-heading h2 {
+    font-size: 1.75rem;
+  }
+
+  .resource-list {
+    display: grid;
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .resource-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-medium);
+    background: var(--color-surface);
+  }
+
+  .resource-kind {
+    margin-bottom: var(--space-2);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .resource-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .resource-description {
+    margin-top: var(--space-3);
+    color: var(--color-text-muted);
+  }
+
+  .resource-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .resource-action {
+    font-weight: 700;
+  }
+
+  @media (min-width: 40rem) {
+    .resource-card {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .resource-information {
+      max-width: 34rem;
+    }
+
+    .resource-actions {
+      flex-shrink: 0;
+    }
+  }
+</style>

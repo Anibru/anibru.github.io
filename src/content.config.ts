@@ -8,14 +8,41 @@ const projects = defineCollection({
     pattern: "**/*.md"
   }),
 
-  schema: z.object({
-    title: z.string(),
-    category: z.string(),
-    summary: z.string(),
-    technologies: z.array(z.string()),
-    featured: z.boolean().default(false),
-    order: z.number().int()
-  })
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      category: z.string(),
+      summary: z.string(),
+      technologies: z.array(z.string()),
+      featured: z.boolean().default(false),
+      order: z.number().int(),
+
+      heroImage: image().optional(),
+      heroAlt: z.string().optional(),
+
+      resources: z.array(
+        z.object({
+          kind: z.enum([
+            "document",
+            "repository",
+            "publication",
+            "video"
+          ]),
+      
+          title: z.string(),
+      
+          description: z.string().optional(),
+      
+          actions: z.array(
+            z.object({
+              label: z.string(),
+              href: z.string(),
+              download: z.boolean().default(false)
+            })
+          ).min(1)
+        })
+      ).default([])
+    })  
 });
 
 export const collections = {

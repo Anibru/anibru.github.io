@@ -12,19 +12,22 @@ const featuredProjects = (
   title="Cedric Orton-Urbina"
   description="The technical portfolio of Cedric Orton-Urbina, specializing in scientific computing, simulation, machine learning, and aerospace research."
 >
-  <section class="hero">
+  <section 
+    class="hero"
+    aira-laballedby="hero-heading">
+
     <div class="container">
       <p class="eyebrow">
         Scientific computing · Simulation · Machine learning
       </p>
 
-      <h1>
+      <h1 id="hero-heading">
         I build computational tools for scientific and engineering problems.
       </h1>
 
       <p class="hero-description">
-        I am a computer scientist and computational researcher interested in
-        physics-based simulation, aerospace, astronomy, and high-performance
+        I am a computer scientist and published computational aerospace researcher interested in
+        physics-based simulation, aerospace, astronomy, machine learning, and high-performance
         computing.
       </p>
 
@@ -47,8 +50,14 @@ const featuredProjects = (
   >
     <div class="container">
       <div class="section-heading">
-        <p class="eyebrow">Selected work</p>
-        <h2 id="projects-heading">Projects</h2>
+        <div>
+          <p class="eyebrow">Selected work</p>
+          <h2 id="projects-heading">Projects</h2>
+        </div>
+      
+        <a class="section-link" href="/projects/">
+          View all projects
+        </a>
       </div>
 
       <div class="project-grid">
@@ -70,12 +79,23 @@ const featuredProjects = (
       <p class="eyebrow">Background</p>
       <h2 id="about-heading">About</h2>
 
-      <p class="section-copy">
-        My work combines computer science with physical modeling and
-        quantitative research. I am particularly interested in software that
-        makes complex physical systems easier to simulate, analyze, and
-        understand.
-      </p>
+      <div class="section-copy">
+        <p>
+          I'm a software engineer and scientific computing researcher with a background in computer science, physics, and astrophysics. I earned an M.Eng. in Computer Science and a B.A. in Physics from Cornell University, where much of my work focused on using computation to understand complex physical systems.
+        </p>
+
+        <p>
+          My research has ranged from spacecraft dynamics and guidance, navigation, and control to the structure of Saturn's rings. I have developed numerical tools for modeling nonlinear dynamical systems and spacecraft trajectories, contributed to peer-reviewed aerospace research, and worked on a NASA Cassini Data Analysis Program project combining signal processing, regression, and machine learning to study wave structures in planetary rings.
+        </p>
+       
+        <p>
+          I enjoy problems that require moving between mathematical models and working software. My projects have included scientific Python libraries, machine learning experiments, parallel and concurrent systems, and full-stack development in a large open-source codebase. I am especially interested in simulation, aerospace software, autonomous systems, scientific computing, and other areas where software has to faithfully represent the behavior of the physical world.
+        </p>
+        
+        <p>
+          Outside of technical work, I have spent years performing as a jazz trombonist and with competitive drum and bugle corps, and I am an avid tennis player. These have been a significant part of my life alongside science and engineering.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -90,18 +110,18 @@ const featuredProjects = (
 
       <p class="section-copy">
         I am interested in opportunities involving scientific software,
-        physics-based simulation, aerospace, and computational research.
+        physics-based simulation, aerospace, machine learning, and computational research.
       </p>
 
       <ul class="contact-links">
         <li>
-          <a href="mailto:your-email@example.com">Email</a>
+          <a href="mailto:ceo29@cornell.edu">Email</a>
         </li>
         <li>
-          <a href="https://github.com/YOUR-USERNAME">GitHub</a>
+          <a href="https://github.com/Anibru">GitHub</a>
         </li>
         <li>
-          <a href="https://www.linkedin.com/in/YOUR-USERNAME">
+          <a href="https://www.linkedin.com/in/cedric-orton-urbina-ab168a37b/">
             LinkedIn
           </a>
         </li>
@@ -112,7 +132,7 @@ const featuredProjects = (
 
 <style>
   .hero {
-    padding-block: clamp(5rem, 12vw, 9rem);
+  padding-block: clamp(6rem, 14vw, 10rem);
   }
 
   .hero .container {
@@ -131,14 +151,19 @@ const featuredProjects = (
 
   .hero h1 {
     max-width: 15ch;
-    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
   }
 
   .hero-description {
-    max-width: 42rem;
+    max-width: 46rem;
     margin-top: var(--space-8);
     color: var(--color-text-muted);
     font-size: clamp(1.125rem, 2vw, 1.35rem);
+    line-height: 1.7;
+    text-wrap: pretty;
   }
 
   .hero-actions {
@@ -146,6 +171,14 @@ const featuredProjects = (
     flex-wrap: wrap;
     gap: var(--space-4);
     margin-top: var(--space-8);
+  }
+
+  .primary-link:focus-visible,
+  .secondary-link:focus-visible,
+  .section-link:focus-visible,
+  .contact-links a:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
   }
 
   .primary-link,
@@ -181,11 +214,57 @@ const featuredProjects = (
   }
 
   .page-section {
-    padding-block: var(--space-16);
+    padding-block: clamp(4.5rem, 8vw, 7rem);
+    border-top: 1px solid var(--color-border);
   }
 
   .section-heading {
+    display: flex;  
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-6);
     margin-bottom: var(--space-8);
+  }
+
+  .section-heading .eyebrow {
+    margin-bottom: var(--space-2);
+  }
+
+  .section-heading h2,
+  .narrow-content h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.025em;
+  }
+
+  @media (max-width: 40rem) {
+    .section-heading {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .hero-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .primary-link,
+    .secondary-link {
+      width: 100%;
+    }
+  }
+
+  .section-link {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  }
+
+  .section-link:hover {
+    color: var(--color-accent);
   }
 
   .section-heading h2,
@@ -198,10 +277,16 @@ const featuredProjects = (
   }
 
   .section-copy {
+    max-width: 60ch;
     margin-top: var(--space-6);
     color: var(--color-text-muted);
     font-size: 1.125rem;
+    line-height: 1.75;
   }
+
+  .section-copy p + p {
+  margin-top: var(--space-6);
+  } 
 
   .contact-links {
     display: flex;
@@ -214,6 +299,8 @@ const featuredProjects = (
 
   .contact-links a {
     font-weight: 700;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
   }
 
 </style>
